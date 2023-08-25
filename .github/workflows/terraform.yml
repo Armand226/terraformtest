@@ -21,7 +21,6 @@ jobs:
     - name: Terraform Init
       run: |
         az login --service-principal --username ${{ secrets.ARM_CLIENT_ID }} --password ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
-        echo "azurerm {features = {}}" > backend.tf
         terraform init
     
     - name: Terraform Plan
