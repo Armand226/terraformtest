@@ -6,6 +6,6 @@ provider "azurerm" {
   subscription_id = var.ARM_SUBSCRIPTION_ID
 }
 resource "azurerm_resource_group" "example" {
-  name     = "my-resource-group"
+  name     = "tesla"
   location = "South Central US"
 }
