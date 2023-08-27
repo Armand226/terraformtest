@@ -2,7 +2,9 @@ provider "azurerm" {
   features {}
   
 }
-resource "azurerm_resource_group" "example" {
-  name     = "tesla"
-  location = "South Central US"
+resource "azurerm_servicebus_namespace" "example" {
+  name                = "example-sbns"
+  location            = "South central US"
+  resource_group_name = "testing123"
+  sku                 = "Standard"
 }
