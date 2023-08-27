@@ -15,7 +15,7 @@ resource "azurerm_servicebus_subscription" "sb" {
   name                           = "${var.topic_names[count.index]}-subscription"
   topic_id                       = azurerm_servicebus_topic.sb[count.index].id
   max_delivery_count             = 3
-  default_message_ttl            = var.default_message_ttl
+ message_ttl            = var.default_message_ttl
 }
 
 
