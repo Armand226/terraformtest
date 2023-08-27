@@ -12,4 +12,10 @@ variable "namespace_name" {
   type        = string
 }
 
+variable "name" {
+  description = "resourcegroup_name"
+  type        = string
+}
+
+
 
