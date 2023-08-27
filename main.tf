@@ -17,18 +17,6 @@ resource "azurerm_servicebus_topic" "sbt" {
   support_ordering                        = var.support_ordering
   duplicate_detection_history_time_window = var.duplicate_detection_history_time_window
 }
-######################################################################################################################
 
-resource "azurerm_servicebus_topic_authorization_rule" "sbtar" {
 
-  name                = "${var.name}-ar"
-  resource_group_name = var.resource_group_name
-  namespace_name      = var.namespace_name
-  topic_name          = azurerm_servicebus_topic.sbt.name
 
-  listen = var.listen
-  send   = var.send
-  manage = var.manage
-
-  depends_on = [azurerm_servicebus_topic.sbt]
-}
