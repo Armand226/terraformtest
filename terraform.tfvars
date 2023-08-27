@@ -2,3 +2,4 @@ namespace_id = "/subscriptions/81da11eb-9e84-4c84-9f2f-18d6145cd8ca/resourceGrou
 namespace_name = "sbs12354"
 resource_group_name = "terratest"
 max_size_in_megabytes = "128 MB"
+name = "test"
