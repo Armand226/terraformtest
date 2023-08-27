@@ -13,7 +13,7 @@ resource "azurerm_servicebus_topic" "sb" {
 
 resource "azurerm_servicebus_subscription" "sb" {
   count                          = length (var.topic_names)
-  name                           = "${var.topic_names[count.index]}-var.subscription[count.index]"
+  name                           = "${var.subscription[count.index]}"
   topic_id                       = azurerm_servicebus_topic.sb[count.index].id
   max_delivery_count             = 3
 }
