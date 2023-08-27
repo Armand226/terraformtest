@@ -24,7 +24,6 @@ variable "default_message_ttl" {
 variable "subscription" {
   description = "List of subscription names"
   type        = list(string)
-  default     = ["ves", "col", "tram"]
 }
 
 
