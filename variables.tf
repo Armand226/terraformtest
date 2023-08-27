@@ -17,7 +17,7 @@ variable "max_size_in_megabytes" {
   type = number
  default     = 1024
 }
-variable "default_message_ttl" {
+variable "message_ttl" {
   type    = string
   default = "PT14H"
 }
