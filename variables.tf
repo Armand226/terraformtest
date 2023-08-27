@@ -19,7 +19,7 @@ variable "max_size_in_megabytes" {
 }
 variable "default_message_ttl" {
   type    = string
-  default = "PT14D"
+  default = "P14D"
 }
 
 
