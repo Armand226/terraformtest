@@ -3,7 +3,7 @@ variable "topics" {
   type        = list(string)
   default     = ["vessel", "cololo", "tramadol"]
 }
-ariable "namespace_id" {
+variable "namespace_id" {
   description = "namespace_id"
   type        = string
 }
