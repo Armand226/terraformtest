@@ -26,12 +26,18 @@ jobs:
       
       
     - name: Initialize Terraform
-      run: terraform init
+      run: |
+        cd servicebus_topics
+        terraform init
      
     - name: Terraform Plan
-      run: terraform plan    
+      run: |
+        cd servicebus_topics
+        terraform plan    
         
     - name: Terraform Apply
-      run: terraform apply -auto-approve
+      run: |
+        cd servicebus_topics 
+        terraform apply -auto-approve
        
       
