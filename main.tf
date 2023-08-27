@@ -8,6 +8,7 @@ resource "azurerm_servicebus_topic" "sb" {
   max_size_in_megabytes          = var.max_size_in_megabytes
   namespace_id                   = var.namespace_id
   enable_partitioning            = false  
+  message_ttl            = var.default_message_ttl
 }
 
 resource "azurerm_servicebus_subscription" "sb" {
@@ -15,7 +16,6 @@ resource "azurerm_servicebus_subscription" "sb" {
   name                           = "${var.topic_names[count.index]}-subscription"
   topic_id                       = azurerm_servicebus_topic.sb[count.index].id
   max_delivery_count             = 3
- message_ttl            = var.default_message_ttl
 }
 
 
