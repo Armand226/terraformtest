@@ -11,7 +11,6 @@ variable "namespace_name" {
 variable "topic_names" {
   description = "List of topic names"
   type        = list(string)
-  default     = ["vessel", "cololo", "tramadol"]
 }
 variable "max_size_in_megabytes" {
   type = number
