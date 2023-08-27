@@ -8,7 +8,7 @@ resource "azurerm_servicebus_topic" "sb" {
   max_size_in_megabytes          = var.max_size_in_megabytes
   namespace_id                   = var.namespace_id
   enable_partitioning            = false  
-  message_ttl            = var.default_message_ttl
+  message_ttl            = var.message_ttl
 }
 
 resource "azurerm_servicebus_subscription" "sb" {
