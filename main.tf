@@ -6,7 +6,6 @@ provider "azurerm" {
 resource "azurerm_servicebus_topic" "example" {
   count               = length(var.topics)
   name                = var.topics[count.index]
-  namespace_name      = var.namespace_name
   resource_group_name = "terratest"
   namespace_id        = var.namespace_id
 }
