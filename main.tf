@@ -19,7 +19,7 @@ resource "azurerm_resource_group_template_deployment" "example" {
       "value" = "mystorageaccount"
     },
     "location" = {
-      "value" = "West Europe"
+      "value" = "South Central US"
     }
   })
 }
