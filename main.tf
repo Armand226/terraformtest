@@ -4,7 +4,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "example" {
   name     = "example-resources"
-  location = "South central US"
+  location = "South central US" #1
 }
 
 resource "azurerm_resource_group_template_deployment" "example" {
