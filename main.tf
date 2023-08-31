@@ -4,17 +4,17 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "example" {
   name     = "example-resources"
-  location = "South central US"
+  location = "South Central US"
 }
 
 resource "azurerm_resource_group_template_deployment" "example" {
   name                = "example-deployment"
   resource_group_name = azurerm_resource_group.example.name
-  deployment_mode     = "Incremental"
+  deployment_mode     = "Incremental"  # or "Complete"
 
   template_content = <<TEMPLATE
 {
-   {
+    {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "metadata": {
@@ -118,5 +118,5 @@ resource "azurerm_resource_group_template_deployment" "example" {
 }
 }
 TEMPLATE
-}
+
 }
