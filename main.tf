@@ -16,7 +16,7 @@ resource "azurerm_resource_group_template_deployment" "example" {
 
   parameters_content = jsonencode({
     "storageAccountName" = {
-      "value" = "mystorageaccount"
+      "value" = "mystorageaccount5464646"
     },
     "location" = {
       "value" = "South Central US"
