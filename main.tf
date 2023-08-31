@@ -13,7 +13,7 @@ resource "azurerm_resource_group_template_deployment" "example" {
   deployment_mode     = "Incremental"  # or "Complet
   template_content = <<TEMPLATE
 {
-    {
+    
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -104,7 +104,7 @@ resource "azurerm_resource_group_template_deployment" "example" {
         ]
     }
   ]
-}
+
 }
 TEMPLATE
 
