@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "example" {
 resource "azurerm_resource_group_template_deployment" "example" {
   name                = "example-deployment"
   resource_group_name = azurerm_resource_group.example.name
-  deployment_mode     = "Incremental"  # or "Complete"
+  deployment_mode     = "Incremental"  #  "Complete"
 
   template_content = <<TEMPLATE
 {
