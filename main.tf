@@ -3,15 +3,14 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example2" {
-  name     = "example-resources"
+  name     = "example-resour"
   location = "South Central US"
 }
 
-resource "azurerm_template_deployment" "example" {
+resource "azurerm_resource_group_template_deployment" "example" {
   name                = "example-deployment"
   resource_group_name = azurerm_resource_group.example.name
-  deployment_mode     = "Incremental"  # or "Complete"
-
+  deployment_mode     = "Incremental"  # or "Complet
   template_content = <<TEMPLATE
 {
     {
