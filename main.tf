@@ -7,10 +7,18 @@ resource "azurerm_resource_group" "example" {
   location = "South Central US"
 }
 
-resource "azurerm_resource_group_template_deployment" "example" {
+provider "azurerm" {
+  features {}
+}
+
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources"
+  location = "South Central US"
+}
+
+resource "azurerm_template_deployment" "example1" {
   name                = "example-deployment"
   resource_group_name = azurerm_resource_group.example.name
-  deployment_mode     = "Incremental"  #  "Complete"
 
   template_content = <<TEMPLATE
 {
@@ -119,4 +127,10 @@ resource "azurerm_resource_group_template_deployment" "example" {
 }
 TEMPLATE
 
+  parameters_content = <<PARAMETERS
+{
+    // Any parameters your ARM template requires
 }
+PARAMETERS
+}
+
