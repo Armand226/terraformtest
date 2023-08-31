@@ -12,7 +12,7 @@ resource "azurerm_resource_group_template_deployment" "example" {
   resource_group_name = azurerm_resource_group.example.name
   deployment_mode     = "Incremental"
 
-  template_content = storage-template.json"
+  template_content = storage-template.json
 
   parameters_content = jsonencode({
     "storageAccountName" = {
