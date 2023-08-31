@@ -16,17 +16,10 @@ resource "azurerm_resource_group_template_deployment" "example" {
     {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
-  "metadata": {
-    "_generator": {
-      "name": "bicep",
-      "version": "0.5.6.12127",
-      "templateHash": "10602523904429381366"
-    }
-  },
   "parameters": {
     "webAppName": {
       "type": "string",
-      "defaultValue": "[format('webApp-{0}', uniqueString(resourceGroup().id))]",
+      "defaultValue": "[concat('webApp-', uniqueString(resourceGroup().id))]",
       "minLength": 2,
       "metadata": {
         "description": "Web app name."
@@ -48,26 +41,26 @@ resource "azurerm_resource_group_template_deployment" "example" {
     },
     "linuxFxVersion": {
       "type": "string",
-      "defaultValue": "DOTNETCORE|3.0",
+      "defaultValue": "PYTHON|3.7",
       "metadata": {
         "description": "The Runtime stack of current web app"
       }
     },
     "repoUrl": {
       "type": "string",
-      "defaultValue": " ",
+      "defaultValue": "",
       "metadata": {
         "description": "Optional Git Repo URL"
       }
     }
   },
   "variables": {
-    "appServicePlanPortalName": "[format('AppServicePlan-{0}', parameters('webAppName'))]"
+    "appServicePlanPortalName": "[concat('AppServicePlan-', parameters('webAppName'))]"
   },
   "resources": [
     {
       "type": "Microsoft.Web/serverfarms",
-      "apiVersion": "2021-02-01",
+      "apiVersion": "2020-06-01",
       "name": "[variables('appServicePlanPortalName')]",
       "location": "[parameters('location')]",
       "sku": {
@@ -80,38 +73,35 @@ resource "azurerm_resource_group_template_deployment" "example" {
     },
     {
       "type": "Microsoft.Web/sites",
-      "apiVersion": "2021-02-01",
+      "apiVersion": "2020-06-01",
       "name": "[parameters('webAppName')]",
       "location": "[parameters('location')]",
-      "properties": {
-        "httpsOnly": true,
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]",
-        "siteConfig": {
-          "linuxFxVersion": "[parameters('linuxFxVersion')]",
-          "minTlsVersion": "1.2",
-          "ftpsState": "FtpsOnly"
-        }
-      },
-      "identity": {
-        "type": "SystemAssigned"
-      },
+
       "dependsOn": [
         "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]"
-      ]
-    },
-    {
-      "condition": "[contains(parameters('repoUrl'), 'http')]",
-      "type": "Microsoft.Web/sites/sourcecontrols",
-      "apiVersion": "2021-02-01",
-      "name": "[format('{0}/{1}', parameters('webAppName'), 'web')]",
+      ],
       "properties": {
-        "repoUrl": "[parameters('repoUrl')]",
-        "branch": "master",
-        "isManualIntegration": true
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]",
+        "siteConfig": {
+          "linuxFxVersion": "[parameters('linuxFxVersion')]"
+        }
       },
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
-      ]
+      "resources": [
+          {
+            "type": "sourcecontrols",
+            "apiVersion": "2020-06-01",
+            "name": "web",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+              "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
+            ],
+            "properties": {
+              "repoUrl": "[parameters('repoUrl')]",
+              "branch": "main",
+              "isManualIntegration": true
+            }
+          }
+        ]
     }
   ]
 }
