@@ -29,6 +29,11 @@ jobs:
       run: |
         cd flow
         terraform init
+
+    - name: Run ARM deploy
+      uses: azure/arm-deploy@v1
+      with:
+        template: ./azuredeploy.json
      
     - name: Terraform Plan
       run: |
@@ -40,3 +45,4 @@ jobs:
         cd flow
         terraform apply -auto-approve
       
+       
