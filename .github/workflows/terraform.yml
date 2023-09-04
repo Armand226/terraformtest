@@ -30,12 +30,6 @@ jobs:
         cd flow
         terraform init
 
-    - name: Run ARM deploy
-      uses: azure/arm-deploy@v1
-      with:
-        resourceGroupName: terratest
-        template: ./flow/azuredeploy.json
-     
     - name: Terraform Plan
       run: |
         cd flow
