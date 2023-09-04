@@ -19,7 +19,7 @@ resource "azurerm_logic_app_standard" "example" {
   name                = "logicapp124578"
 storage_account_name  = "piskaroro226"
   resource_group_name = "terratest"
-storage_account_access_key = "O9L4Mseg+ymMVOHwJKpySZxYXPE3+GjInxchweqsE5+GZXhgJCF0Qe1vi1DdqKUxilJQxEQq36cg+AStgyqSRQ=="
+storage_account_access_key = "HNZhlCkht7HuEJoDDeaCdA1Gqyq1PqxSdSFeuAtkGJBkL6g35qsaLuK6pHN5tadMwnTo6TDICl18+ASthncr1Q=="
 app_service_plan_id = azurerm_app_service_plan.example.id
   location            = "South Central US"
 
