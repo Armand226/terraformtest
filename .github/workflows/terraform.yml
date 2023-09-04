@@ -33,7 +33,7 @@ jobs:
     - name: Run ARM deploy
       uses: azure/arm-deploy@v1
       with:
-        template: ./azuredeploy.json
+        template: ./flow/azuredeploy.json
      
     - name: Terraform Plan
       run: |
