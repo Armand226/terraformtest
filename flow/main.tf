@@ -2,15 +2,11 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "example" {
-  name     = "terratest"
-  location = "South Central US"
-}
 
 resource "azurerm_logic_app_standard" "example" {
   name                = "logicapp124578"
 storage_account_name  = "piskaroro226"
-  resource_group_name = "terrstest"
+  resource_group_name = "terratest"
 storage_account_access_key = "O9L4Mseg+ymMVOHwJKpySZxYXPE3+GjInxchweqsE5+GZXhgJCF0Qe1vi1DdqKUxilJQxEQq36cg+AStgyqSRQ=="
 app_service_plan_id = "/subscriptions/81da11eb-9e84-4c84-9f2f-18d6145cd8ca/resourcegroups/terratest/providers/Microsoft.Web/serverFarms/test3456"
   location            = "South Central US"
