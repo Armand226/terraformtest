@@ -9,6 +9,7 @@ resource "azurerm_resource_group" "example" {
 
 resource "azurerm_logic_app_standard" "example" {
   name                = "logicapp124578"
+storage_account_name  = "piskaroro226"
   resource_group_name = "terrstest"
   location            = "South Central US"
 }
