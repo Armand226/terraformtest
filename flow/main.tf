@@ -48,11 +48,9 @@ resource "azurerm_logic_app_workflow" "workflow2" {
 }
 
 resource "azurerm_resource_group_template_deployment" "example" {
-  name                = "example-deploy"
+  name                = "deploy656459"
   resource_group_name = "terratest"
   deployment_mode     = "Incremental"
-  parameters_content = jsonencode({
-  })
  template_content = <<TEMPLATE
 {
   "definition": {
