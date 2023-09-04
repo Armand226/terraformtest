@@ -88,3 +88,6 @@ resource "azurerm_resource_group_template_deployment" "example" {
 TEMPLATE
 
   }
+output arm_example_output {
+  value = jsondecode(azurerm_resource_group_template_deployment.example.output_content).exampleOutput.value
+}
