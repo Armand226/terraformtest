@@ -27,17 +27,17 @@ jobs:
       
     - name: Initialize Terraform
       run: |
-        cd servicebus
+        cd flow
         terraform init
      
     - name: Terraform Plan
       run: |
-        cd servicebus
+        cd flow
         terraform plan    
         
-    - name: Terraform Apply
-      run: |
-        cd servicebus
-        terraform apply -auto-approve
+    #- name: Terraform Apply
+     # run: |
+      #  cd flow
+       # terraform apply -auto-approve
        
       
