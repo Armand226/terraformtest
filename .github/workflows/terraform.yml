@@ -35,9 +35,9 @@ jobs:
         cd flow
         terraform plan    
         
-    #- name: Terraform Apply
-     # run: |
-      #  cd flow
-       # terraform apply -auto-approve
+    - name: Terraform Apply
+      run: |
+        cd flow
+        terraform apply -auto-approve
        
       
