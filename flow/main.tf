@@ -49,14 +49,11 @@ resource "azurerm_logic_app_workflow" "workflow2" {
 
 resource "azurerm_resource_group_template_deployment" "example" {
   name                = "example-deploy"
-  resource_group_name = "example-group"
+  resource_group_name = "terratest"
   deployment_mode     = "Incremental"
   parameters_content = jsonencode({
-    "vnetName" = {
-      value = local.vnet_name
-    }
   })
-  template_content = <<TEMPLATE
+ template_content = <<TEMPLATE
 {
   "definition": {
     "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
@@ -90,7 +87,6 @@ resource "azurerm_resource_group_template_deployment" "example" {
   },
   "kind": "Stateful"
 }
-}     
-    
-
 TEMPLATE
+
+  }
