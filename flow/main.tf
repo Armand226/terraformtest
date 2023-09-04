@@ -11,6 +11,7 @@ resource "azurerm_logic_app_standard" "example" {
   name                = "logicapp124578"
 storage_account_name  = "piskaroro226"
   resource_group_name = "terrstest"
+storage_account_access_key = "O9L4Mseg+ymMVOHwJKpySZxYXPE3+GjInxchweqsE5+GZXhgJCF0Qe1vi1DdqKUxilJQxEQq36cg+AStgyqSRQ=="
   location            = "South Central US"
 }
 
