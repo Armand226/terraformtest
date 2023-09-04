@@ -18,7 +18,7 @@ resource "azurerm_logic_app_workflow" "workflow1" {
  
   resource_group_name = "terratest"
   location            = "South Central US"
-sku_name = "Standard"
+
   tags = {
     "environment" = "prod"
   }
@@ -29,7 +29,7 @@ resource "azurerm_logic_app_workflow" "workflow2" {
  
   resource_group_name = "terratest"
   location            = "South Central US"
-sku_name = "Standard"
+
   tags = {
     "environment" = "prod"
   }
