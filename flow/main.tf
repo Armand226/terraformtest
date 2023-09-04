@@ -58,37 +58,39 @@ resource "azurerm_resource_group_template_deployment" "example" {
   })
   template_content = <<TEMPLATE
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "vnetName": {
-            "type": "string",
-            "metadata": {
-                "description": "Name of the VNET"
-            }
-        }
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "actions": {
+      "Execute_Query": {
+        "inputs": {
+          "parameters": {
+            "query": "select * from testtable"
+          },
+          "serviceProviderConfiguration": {
+            "connectionName": "sql",
+            "operationId": "executeQuery",
+            "serviceProviderId": "/serviceProviders/sql"
+          }
+        },
+        "runAfter": {},
+        "type": "ServiceProvider"
+      }
     },
-    "variables": {},
-    "resources": [
-        {
-            "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2020-05-01",
-            "name": "[parameters('vnetName')]",
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "10.0.0.0/16"
-                    ]
-                }
-            }
-        }
-    ],
-    "outputs": {
-      "exampleOutput": {
-        "type": "string",
-        "value": "someoutput"
+    "contentVersion": "1.0.0.0",
+    "outputs": {},
+    "triggers": {
+      "Recurrence": {
+        "recurrence": {
+          "frequency": "Week",
+          "interval": 15
+        },
+        "type": "Recurrence"
       }
     }
+  },
+  "kind": "Stateful"
 }
+}     
+    
+
 TEMPLATE
