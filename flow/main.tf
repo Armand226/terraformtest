@@ -2,13 +2,25 @@ provider "azurerm" {
   features {}
 }
 
+resource "azurerm_app_service_plan" "example" {
+  name                = "azure-functions-test-service-plan"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  kind                = "elastic"
+
+
+  sku {
+    tier = "WorkflowStandard"
+    size = "WS1"
+  }
+}
 
 resource "azurerm_logic_app_standard" "example" {
   name                = "logicapp124578"
 storage_account_name  = "piskaroro226"
   resource_group_name = "terratest"
 storage_account_access_key = "O9L4Mseg+ymMVOHwJKpySZxYXPE3+GjInxchweqsE5+GZXhgJCF0Qe1vi1DdqKUxilJQxEQq36cg+AStgyqSRQ=="
-app_service_plan_id = "/subscriptions/81da11eb-9e84-4c84-9f2f-18d6145cd8ca/resourcegroups/terratest/providers/Microsoft.Web/serverFarms/gr4563288"
+app_service_plan_id = azurerm_app_service_plan.example.id
   location            = "South Central US"
 
 }
