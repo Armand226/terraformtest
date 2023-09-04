@@ -18,7 +18,7 @@ app_service_plan_id = "/subscriptions/81da11eb-9e84-4c84-9f2f-18d6145cd8ca/resou
 
 resource "azurerm_logic_app_workflow" "workflow1" {
   name                = "workflow1"
-  logic_app_id        = azurerm_logic_app_standard.example.id
+ 
   resource_group_name = azurerm_resource_group.example.name
   location            = "South Central US"
 
@@ -29,7 +29,7 @@ resource "azurerm_logic_app_workflow" "workflow1" {
 
 resource "azurerm_logic_app_workflow" "workflow2" {
   name                = "workflow2"
-  logic_app_id        = azurerm_logic_app_standard.example.id
+ 
   resource_group_name = azurerm_resource_group.example.name
   location            = "South Central US"
 
