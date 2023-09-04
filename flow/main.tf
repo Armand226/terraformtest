@@ -47,37 +47,48 @@ resource "azurerm_logic_app_workflow" "workflow2" {
   }
 }
 
-/* Triggers and actions for workflow1
-resource "azurerm_logic_app_trigger_recurrence" "workflow1_trigger" {
-  name         = "recurrence"
-  logic_app_id = azurerm_logic_app_workflow.workflow1.id
-  frequency    = "Day"
-  interval     = 1
+resource "azurerm_resource_group_template_deployment" "example" {
+  name                = "example-deploy"
+  resource_group_name = "example-group"
+  deployment_mode     = "Incremental"
+  parameters_content = jsonencode({
+    "vnetName" = {
+      value = local.vnet_name
+    }
+  })
+  template_content = <<TEMPLATE
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the VNET"
+            }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2020-05-01",
+            "name": "[parameters('vnetName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                }
+            }
+        }
+    ],
+    "outputs": {
+      "exampleOutput": {
+        "type": "string",
+        "value": "someoutput"
+      }
+    }
 }
-
-resource "azurerm_logic_app_action_http" "workflow1_action" {
-  name         = "http_action"
-  logic_app_id = azurerm_logic_app_workflow.workflow1.id
-  method       = "GET"
-  uri          = "http://example.com"
-
-  depends_on = [azurerm_logic_app_trigger_recurrence.workflow1_trigger]
-}
-
-# Triggers and actions for workflow2
-resource "azurerm_logic_app_trigger_recurrence" "workflow2_trigger" {
-  name         = "recurrence"
-  logic_app_id = azurerm_logic_app_workflow.workflow2.id
-  frequency    = "Hour"
-  interval     = 1
-}
-
-resource "azurerm_logic_app_action_http" "workflow2_action" {
-  name         = "http_action"
-  logic_app_id = azurerm_logic_app_workflow.workflow2.id
-  method       = "GET"
-  uri          = "http://example.org"
-
-  depends_on = [azurerm_logic_app_trigger_recurrence.workflow2_trigger]
-}
-*/
+TEMPLATE
