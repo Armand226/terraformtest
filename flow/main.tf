@@ -5,7 +5,7 @@ resource "azurerm_linux_web_app" "example" {
   service_plan_id = "/subscriptions/subscription-id/resourceGroups/existing-resource-group-name/providers/Microsoft.Web/serverfarms/${var.service_plan_id}"
 
   site_config {
-    linux_fx_version = "NODE|18"
+    #linux_fx_version = "NODE|18"
   }
 
   app_settings = {
