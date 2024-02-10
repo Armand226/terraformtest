@@ -1,14 +1,7 @@
 name: Deploy to Azure App Service
 
 on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
+  workflow_dispatch:
     inputs:
       app-service-name:
         description: 'Azure App Service Name'
@@ -16,6 +9,10 @@ jobs:
       app-service-plan-name:
         description: 'Azure App Service Plan Name'
         required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -33,4 +30,4 @@ jobs:
 
     - name: Deploy to Azure App Service
       run: |
-        az webapp deployment source config-zip --name "${{ inputs.app-service-name }}" --resource-group "<your-resource-group>" --src "<path-to-zip-file>"
+        az webapp deployment source config-zip --name "${{ github.event.inputs.app-service-name }}" --resource-group "<your-resource-group>" --src "<path-to-zip-file>"
