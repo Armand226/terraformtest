@@ -31,4 +31,4 @@ jobs:
         terraform plan \
           -var "resource_group_name=${{ github.event.inputs.resource-group-name }}" \
           -var "app_service_name=${{ github.event.inputs.app-service-name }}" \
-          -var "app_service_plan_name=${{ github.event.inputs.service-plan-id }}"
+          -var "service_plan_id=${{ github.event.inputs.service-plan-id }}"
