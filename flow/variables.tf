@@ -7,7 +7,7 @@ variable "app_service_name" {
   description = "The name of the Azure App Service"
 }
 
-variable "service_plan_name" {
+variable "service_plan_id" {
   type    = string
   description = "The name of the Azure App Service Plan"
 }
