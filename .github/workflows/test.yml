@@ -22,11 +22,13 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Terraform Init
+      working-directory: ./flow
       run: terraform init
 
     - name: Terraform Apply
+      working-directory: ./flow
       run: |
         terraform apply \
           -auto-approve \
           -var "app_service_name=${{ github.event.inputs.app-service-name }}" \
-          -var "app_service_plan_name=${{ github.event.inputs.app-service-plan-name }}"
+          -var "app_service_plan_name=${{ github.event.inputs.app-servi
