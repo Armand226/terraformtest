@@ -31,4 +31,4 @@ jobs:
         terraform apply \
           -auto-approve \
           -var "app_service_name=${{ github.event.inputs.app-service-name }}" \
-          -var "app_service_plan_name=${{ github.event.inputs.app-servi
+          -var "app_service_plan_name=${{ github.event.inputs.app-service-plan-name }}"
