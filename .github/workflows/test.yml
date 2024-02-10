@@ -9,7 +9,7 @@ on:
       app-service-name:
         description: 'Azure App Service Name'
         required: true
-      app-service-plan-id:
+      service-plan-id:
         description: 'Azure App Service Plan Name'
         required: true
 
@@ -32,4 +32,4 @@ jobs:
           -auto-approve \
           -var "resource_group_name=${{ github.event.inputs.resource-group-name }}" \
           -var "app_service_name=${{ github.event.inputs.app-service-name }}" \
-          -var "app_service_plan_name=${{ github.event.inputs.app-service-plan-id }}"
+          -var "app_service_plan_name=${{ github.event.inputs.service-plan-id }}"
