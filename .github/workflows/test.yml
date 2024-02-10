@@ -3,6 +3,9 @@ name: Deploy to Azure App Service
 on:
   workflow_dispatch:
     inputs:
+      resourcegroup-name:
+        description: 'Resource Group Name'
+        required: true
       app-service-name:
         description: 'Azure App Service Name'
         required: true
