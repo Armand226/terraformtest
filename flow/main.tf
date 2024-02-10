@@ -1,3 +1,7 @@
+provider "azurerm" {
+  features {}
+}
+
 resource "azurerm_linux_web_app" "example" {
   name                = var.app_service_name
   location            = "East US"  # Change it to your desired location
