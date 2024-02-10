@@ -9,6 +9,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    inputs:
+      app-service-name:
+        description: 'Azure App Service Name'
+        required: true
+      app-service-plan-name:
+        description: 'Azure App Service Plan Name'
+        required: true
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -23,16 +31,6 @@ jobs:
       with:
         azcliversion: latest
 
-    - name: Prompt for App Service Name
-      run: |
-        echo "Enter the Azure App Service Name:"
-        read -r APP_SERVICE_NAME
-
-    - name: Prompt for App Service Plan Name
-      run: |
-        echo "Enter the Azure App Service Plan Name:"
-        read -r APP_SERVICE_PLAN_NAME
-
     - name: Deploy to Azure App Service
       run: |
-        az webapp deployment source config-zip --name "$APP_SERVICE_NAME" --resource-group "<your-resource-group>" --src "<path-to-zip-file>"
+        az webapp deployment source config-zip --name "${{ inputs.app-service-name }}" --resource-group "<your-resource-group>" --src "<path-to-zip-file>"
