@@ -9,7 +9,7 @@ on:
       app-service-name:
         description: 'Azure App Service Name'
         required: true
-      app-service-plan-name:
+      app-service-plan-id:
         description: 'Azure App Service Plan Name'
         required: true
 
