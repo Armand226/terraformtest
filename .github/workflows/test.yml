@@ -18,16 +18,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Terraform Init
+      run: terraform init
 
-    - name: Set up Azure CLI
-      uses: azure/CLI@v1
-      with:
-        azcliversion: latest
-
-    - name: Deploy to Azure App Service
+    - name: Terraform Apply
       run: |
-        az webapp deployment source config-zip --name "${{ github.event.inputs.app-service-name }}" --resource-group "<your-resource-group>" --src "<path-to-zip-file>"
+        terraform apply \
+          -auto-approve \
+          -var "app_service_name=${{ github.event.inputs.app-service-name }}" \
+          -var "app_service_plan_name=${{ github.event.inputs.app-service-plan-name }}"
