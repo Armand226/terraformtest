@@ -22,8 +22,6 @@ jobs:
       uses: actions/checkout@v2
 
     - uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.1.7
 
     - name: Configure Terraform environment variables
       run: |
