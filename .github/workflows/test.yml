@@ -40,7 +40,7 @@ jobs:
     - name: Terraform plan
       working-directory: ./flow
       run: |
-        echo "resource_group_name = \"${{ github.event.inputs.resource-group-name }}"" > terraform.tfvars
-        echo "app_service_name = \"${{ github.event.inputs.app-service-name }}"" >> terraform.tfvars
-        echo "service_plan_id = \"${{ github.event.inputs.service-plan-id }}"" >> terraform.tfvars
+        echo "resource_group_name = \"${{ github.event.inputs.resource-group-name }}\"" > terraform.tfvars
+        echo "app_service_name = \"${{ github.event.inputs.app-service-name }}\"" >> terraform.tfvars
+        echo "service_plan_id = \"${{ github.event.inputs.service-plan-id }}\"" >> terraform.tfvars
         terraform plan
