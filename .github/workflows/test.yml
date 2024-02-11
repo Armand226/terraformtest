@@ -21,6 +21,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.1.7"
+
     - name: Configure Terraform environment variables
       run: |
         echo "ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}" >> $GITHUB_ENV
