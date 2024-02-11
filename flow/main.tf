@@ -1,6 +1,6 @@
 provider "azurerm" {
-skip_provider_registration
   features {}
+skip_provider_registration = true
 }
 
 resource "azurerm_linux_web_app" "example" {
