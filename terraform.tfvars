@@ -1,2 +1,2 @@
 db_user     = "myuser"
-db_password = "mypassword123"
+db_password = "admin123"
