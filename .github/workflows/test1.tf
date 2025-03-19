@@ -1,9 +1,7 @@
 name: Terraform Deploy MongoDB Atlas
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   terraform:
