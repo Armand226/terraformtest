@@ -18,23 +18,27 @@ resource "mongodbatlas_project" "my_project" {
 }
 
 resource "mongodbatlas_cluster" "my_cluster" {
-  project_id                = mongodbatlas_project.my_project.id
-  name                      = "my-cluster"
-  provider_name             = "AZURE"  # Use Azure as the cloud provider
-  provider_instance_size_name = "M0"   # Free-tier cluster
-  backing_provider_name     = "AZURE"  # Required for Azure
-  region_name               = "EAST_US"  # Change to your preferred Azure region
+  project_id                 = mongodbatlas_project.my_project.id
+  name                       = "my-cluster"
+  provider_name              = "AZURE"  # Azure as the provider
+  provider_instance_size_name = "M0"    # Free-tier cluster
+  backing_provider_name      = "AZURE"
+  provider_region_name       = "EAST_US" # Correct argument for Azure region
 }
+
 
 resource "mongodbatlas_database_user" "db_user" {
   username           = "myuser"
   password           = var.db_password
   project_id         = mongodbatlas_project.my_project.id
+  auth_database_name = "admin"  # Required field
+
   roles {
-    role_name   = "readWrite"
+    role_name     = "readWrite"
     database_name = "mydatabase"
   }
 }
+
 
 resource "mongodbatlas_database" "my_database" {
   project_id  = mongodbatlas_project.my_project.id
