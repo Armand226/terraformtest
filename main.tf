@@ -42,9 +42,15 @@ resource "mongodbatlas_database" "my_database" {
   name        = "mydatabase"
 }
 
-resource "mongodbatlas_database_collection" "my_collection" {
-  project_id  = mongodbatlas_project.my_project.id
-  cluster_name = mongodbatlas_cluster.my_cluster.name
-  db_name     = mongodbatlas_database.my_database.name
-  name        = "mycollection"
+resource "null_resource" "create_db_collection" {
+  depends_on = [mongodbatlas_cluster.my_cluster]
+
+  provisioner "local-exec" {
+    command = <<EOT
+      mongosh "mongodb+srv://${var.db_user}:${var.db_password}@my-cluster.mongodb.net" --eval '
+        use mydatabase;
+        db.createCollection("mycollection");
+      '
+    EOT
+  }
 }
