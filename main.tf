@@ -18,12 +18,12 @@ resource "mongodbatlas_project" "my_project" {
 }
 
 resource "mongodbatlas_cluster" "my_cluster" {
-  project_id   = mongodbatlas_project.my_project.id
-  name         = "my-cluster"
-  provider_name = "AWS"
-  region_name   = "US_EAST_1"
-  backing_provider_name = "AWS"
-  instance_size_name = "M0" # Free-tier
+  project_id                = mongodbatlas_project.my_project.id
+  name                      = "my-cluster"
+  provider_name             = "AZURE"  # Use Azure as the cloud provider
+  provider_instance_size_name = "M0"   # Free-tier cluster
+  backing_provider_name     = "AZURE"  # Required for Azure
+  region_name               = "EAST_US"  # Change to your preferred Azure region
 }
 
 resource "mongodbatlas_database_user" "db_user" {
@@ -34,13 +34,6 @@ resource "mongodbatlas_database_user" "db_user" {
     role_name   = "readWrite"
     database_name = "mydatabase"
   }
-}
-
-resource "mongodbatlas_network_container" "vpc" {
-  project_id     = mongodbatlas_project.my_project.id
-  provider_name  = "AWS"
-  region_name    = "US_EAST_1"
-  atlas_cidr_block = "192.168.0.0/24"
 }
 
 resource "mongodbatlas_database" "my_database" {
