@@ -23,3 +23,13 @@ variable "db_password" {
   #sensitive   = true
 default = "admin123"
 }
+variable "db_user" {
+  description = "MongoDB database username"
+  type        = string
+}
+
+variable "db_password" {
+  description = "MongoDB database password"
+  type        = string
+  sensitive   = true
+}
