@@ -23,7 +23,7 @@ resource "mongodbatlas_cluster" "my_cluster" {
   provider_name              = "AZURE"  # Azure as the provider
   provider_instance_size_name = "M0"    # Free-tier cluster
   backing_provider_name      = "AZURE"
-  provider_region_name       = "US_EAST_2" # Correct argument for Azure region
+  provider_region_name       = "US_EAST" # Correct argument for Azure region
 }
 
 
