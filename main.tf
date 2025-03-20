@@ -26,6 +26,11 @@ resource "mongodbatlas_cluster" "my_cluster" {
   provider_region_name       = "US_WEST" # Correct argument for Azure region
 }
 
+# Add Your IP Address to MongoDB Atlas Whitelist
+resource "mongodbatlas_project_ip_whitelist" "ip_whitelist" {
+  project_id = mongodbatlas_project.my_project.id
+  cidr_block = "Y172.58.51.134/32"  # Replace with your public IP address (e.g., 203.0.113.45/32)
+}
 
 resource "mongodbatlas_database_user" "db_user" {
   username           = "myuser"
