@@ -21,7 +21,7 @@ resource "mongodbatlas_cluster" "my_cluster" {
   project_id                 = mongodbatlas_project.my_project.id
   name                       = "my-cluster"
   provider_name              = "AZURE"  # Azure as the provider
-  provider_instance_size_name = "M2"    # Free-tier cluster
+  provider_instance_size_name = "M10"    # Free-tier cluster
   backing_provider_name      = "AZURE"
   provider_region_name       = "US_WEST" # Correct argument for Azure region
 }
