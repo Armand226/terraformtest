@@ -48,7 +48,12 @@ output "mongodb_connection_string" {
 
 resource "null_resource" "create_db_collection" {
   provisioner "local-exec" {
-    command = "mongosh \"${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}\" --eval \"use Database1; db.createCollection('collection1');\""
+    command = <<EOT
+      mongosh "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval "
+        use Database1;
+        db.createCollection('collection1');
+      "
+    EOT
   }
-depends_on = [mongodbatlas_cluster.my_cluster]
+  depends_on = [mongodbatlas_cluster.my_cluster]
 }
