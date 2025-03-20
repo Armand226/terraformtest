@@ -28,7 +28,7 @@ resource "mongodbatlas_cluster" "my_cluster" {
 
 resource "mongodbatlas_project_ip_access_list" "ip_whitelist" {
   project_id = mongodbatlas_project.my_project.id
-  cidr_block = "172.58.51.134/32"  # Replace with your public IP address (e.g., 203.0.113.45/32)
+  cidr_block = "75.217.170.78/32"  # Replace with your public IP address (e.g., 203.0.113.45/32)
 }
 
 resource "mongodbatlas_database_user" "db_user" {
@@ -51,9 +51,6 @@ output "mongodb_connection_string" {
 resource "null_resource" "create_db_collection" {
   provisioner "local-exec" {
     command = <<EOT
-      echo "Waiting for MongoDB Atlas cluster to be available..."
-      sleep 60  # Wait for 2 minutes to ensure the cluster is ready
-
       mongosh "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval "
       use Database1;
       db.createCollection(\"collection1\");
