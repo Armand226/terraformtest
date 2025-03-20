@@ -27,9 +27,7 @@ resource "mongodbatlas_cluster" "my_cluster" {
 }
 
 
-resource "mongodbatlas_database_user" "db_user" {mongosh "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval '
-        use Database1;
-        db.createCollection("collection1");'
+resource "mongodbatlas_database_user" "db_user" {
   username           = "myuser"
   password           = var.db_password
   project_id         = mongodbatlas_project.my_project.id
@@ -51,10 +49,10 @@ resource "null_resource" "create_db_collection" {
     command = <<EOT
       echo "Waiting for MongoDB Atlas cluster to be available..."
       sleep 120  # Wait for 2 minutes
-      mongosh "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval "
+      mongosh "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval '
       use Database1;
       db.createCollection('collection1');
-      "
+      '
     EOT
   }
 
