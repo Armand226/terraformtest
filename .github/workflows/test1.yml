@@ -45,12 +45,14 @@ jobs:
 
       - name: Get MongoDB Connection String Output
         id: output
-        run: echo "::set-output name=mongodb_connection_string::$(terraform output -raw mongodb_connection_string)"
-        
+        run: |
+          connection_string=$(terraform output -raw mongodb_connection_string)
+          echo "MONGODB_CONNECTION_STRING=$connection_string" >> $GITHUB_ENV
+
       - name: Initialize MongoDB Database
         run: |
           echo "Connecting to MongoDB Atlas and creating database and collection..."
-          mongosh --username "myuser" --password "${{ secrets.MONGODB_ATLAS_DB_PASSWORD }}" "${{ steps.output.outputs.mongodb_connection_string }}" --eval "
+          mongosh --username "myuser" --password "${{ secrets.MONGODB_ATLAS_DB_PASSWORD }}" "${{ env.MONGODB_CONNECTION_STRING }}" --eval "
             use Database1;
             db.createCollection('collection1');
             db.collection1.insertOne({ x: 1 });
