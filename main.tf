@@ -13,7 +13,7 @@ provider "mongodbatlas" {
 }
 
 resource "mongodbatlas_project" "my_project" {
-  name   = "Rmandtest4520000"
+  name   = "Rmandtest000"
   org_id = var.org_id
 }
 
@@ -23,7 +23,7 @@ resource "mongodbatlas_cluster" "my_cluster" {
   provider_name              = "AZURE"  # Azure as the provider
   provider_instance_size_name = "M10"    # Free-tier cluster
   backing_provider_name      = "AZURE"
-  provider_region_name       = "EastUS" # Correct argument for Azure region
+  provider_region_name       = "eastus2" # Correct argument for Azure region
 }
 
 
