@@ -48,29 +48,4 @@ output "mongodb_connection_string" {
   sensitive = true
 }
 
-resource "null_resource" "init_mongodb" {
-  provisioner "local-exec" {
-    command = <<EOT
-      # Connect to MongoDB Atlas Cluster
-      mongosh --username "myuser" --password "${var.db_password}" "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval "print('Connected to MongoDB Atlas Cluster')"
-    EOT
-  }
 
-  depends_on = [mongodbatlas_cluster.my_cluster, mongodbatlas_database_user.db_user]
-}
-
-resource "null_resource" "create_collection" {
-  provisioner "local-exec" {
-    command = <<EOT
-      # Create the collection in the Database
-      mongosh --username "myuser" --password "${var.db_password}" "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval "
-        use Database1;
-        db.createCollection('collection1');
-        db.collection1.insertOne({ x: 1 });
-        print('Collection created and document inserted');
-      " --timeout 60000  # Set timeout to 60 seconds
-    EOT
-  }
-
-  depends_on = [null_resource.init_mongodb]  # Ensure this runs after the connection
-}
