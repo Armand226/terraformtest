@@ -39,8 +39,16 @@ resource "mongodbatlas_database_user" "db_user" {
   }
 }
 
+output "mongodb_connection_string" {
+  value = mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv
+  sensitive = true
+}
+
 resource "null_resource" "create_db_collection" {
   provisioner "local-exec" {
-    command = "mongosh mongodb+srv://${var.db_user}:${var.db_password}@${mongodbatlas_cluster.my_cluster.name}.mongodb.net --eval 'use ${var.db_name}; db.createCollection(\"${var.collection_name}\");'"
+    command = "mongosh "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval '
+        use Database1;
+        db.createCollection("collection1");'"
   }
+depends_on = [mongodbatlas_cluster.my_cluster]
 }
