@@ -1,8 +1,8 @@
 name: Terraform Azure Resource Group
 
 on:
-  push:
-    branches:
+
+ workflow_dispatch:
      
 
 jobs:
