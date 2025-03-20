@@ -39,13 +39,6 @@ resource "mongodbatlas_database_user" "db_user" {
   }
 }
 
-
-resource "mongodbatlas_database" "my_database" {
-  project_id  = mongodbatlas_project.my_project.id
-  cluster_name = mongodbatlas_cluster.my_cluster.name
-  name        = "mydatabase"
-}
-
 resource "null_resource" "create_db_collection" {
   depends_on = [mongodbatlas_cluster.my_cluster]
 
