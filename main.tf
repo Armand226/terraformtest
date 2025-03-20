@@ -55,7 +55,7 @@ resource "null_resource" "create_db_collection" {
       use Database1;
       db.createCollection(\"collection1\");
       db.collection1.insertOne({ x: 1 });
-      "
+      " --timeout 60000  # Set timeout to 60 seconds
     EOT
   }
 
