@@ -13,7 +13,7 @@ provider "mongodbatlas" {
 }
 
 resource "mongodbatlas_project" "my_project" {
-  name   = "Rmand14"
+  name   = "Rmand145"
   org_id = var.org_id
 }
 
