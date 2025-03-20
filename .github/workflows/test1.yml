@@ -18,7 +18,8 @@ jobs:
           echo "deb [signed-by=/usr/share/keyrings/mongodb-server-keyring.gpg] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
           sudo apt-get update
           sudo apt-get install -y mongodb-mongosh
-
+      - name: test
+        run: mongosh "mongodb+srv://my-cluster.1dtsi.mongodb.net" --username "myuser" --password "admin123"
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
