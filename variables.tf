@@ -27,3 +27,15 @@ variable "db_user" {
   description = "MongoDB database username"
   type        = string
 }
+
+variable "db_name" {
+  description = "MongoDB database username"
+  type        = string
+default = "Database1"
+}
+variable "collection_name" {
+  description = "MongoDB database username"
+  type        = string
+default = "collection1"
+}
+
