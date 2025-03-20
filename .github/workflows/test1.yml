@@ -48,7 +48,9 @@ jobs:
         run: |
             connection_string=$(terraform output -raw mongodb_connection_string)
             echo "Connection String: $connection_string"
-            echo "MONGODB_CONNECTION_STRING=$connection_string" >> $GITHUB_ENV
+            echo "MONGODB_CONNECTION_STRING=$connection_string" >> test.txt
+            cat test.txt
+            echo "mongodb+srv://myuser:<db_password>@my-cluster.gnly8.mongodb.net/"
 
       - name: Initialize MongoDB Database
         run: |
