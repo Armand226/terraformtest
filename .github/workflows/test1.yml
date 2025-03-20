@@ -42,3 +42,12 @@ jobs:
           MONGODB_ATLAS_PRIVATE_KEY: ${{ secrets.MONGODB_ATLAS_PRIVATE_KEY }}
           MONGODB_ATLAS_ORG_ID: ${{ secrets.MONGODB_ATLAS_ORG_ID }}
           MONGODB_ATLAS_DB_PASSWORD: ${{ secrets.MONGODB_ATLAS_DB_PASSWORD }}
+
+      - name: Initialize MongoDB Database
+        run: |
+          echo "Connecting to MongoDB Atlas and creating database and collection..."
+          mongosh --username "myuser" --password "admin123" "${{ steps.terraform.outputs.mongodb_connection_string }}" --eval "
+          use Database1;
+          db.createCollection('collection1');
+          db.collection1.insertOne({ x: 1 });
+          print('Database and collection created');
