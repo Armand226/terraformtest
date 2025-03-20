@@ -40,14 +40,7 @@ resource "mongodbatlas_database_user" "db_user" {
 }
 
 resource "null_resource" "create_db_collection" {
-  depends_on = [mongodbatlas_cluster.my_cluster]
-
   provisioner "local-exec" {
-    command = <<EOT
-      mongosh "mongodb+srv://${var.db_user}:${var.db_password}@my-cluster.mongodb.net" --eval '
-        use mydatabase;
-        db.createCollection("mycollection");
-      '
-    EOT
+    command = "mongosh mongodb+srv://${var.db_user}:${var.db_password}@${mongodbatlas_cluster.my_cluster.name}.mongodb.net --eval 'use ${var.db_name}; db.createCollection(\"${var.collection_name}\");'"
   }
 }
