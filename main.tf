@@ -27,7 +27,9 @@ resource "mongodbatlas_cluster" "my_cluster" {
 }
 
 
-resource "mongodbatlas_database_user" "db_user" {
+resource "mongodbatlas_database_user" "db_user" {mongosh "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval '
+        use Database1;
+        db.createCollection("collection1");'
   username           = "myuser"
   password           = var.db_password
   project_id         = mongodbatlas_project.my_project.id
@@ -46,9 +48,7 @@ output "mongodb_connection_string" {
 
 resource "null_resource" "create_db_collection" {
   provisioner "local-exec" {
-    command = "mongosh "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval '
-        use Database1;
-        db.createCollection("collection1");'"
+    command = "mongosh \"${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}\" --eval 'use Database1; db.createCollection(\"collection1\");'"
   }
 depends_on = [mongodbatlas_cluster.my_cluster]
 }
