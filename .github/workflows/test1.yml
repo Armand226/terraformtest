@@ -46,8 +46,9 @@ jobs:
       - name: Get MongoDB Connection String Output
         id: output
         run: |
-          connection_string=$(terraform output -raw mongodb_connection_string)
-          echo "MONGODB_CONNECTION_STRING=$connection_string" >> $GITHUB_ENV
+            connection_string=$(terraform output -raw mongodb_connection_string)
+            echo "Connection String: $connection_string"
+            echo "MONGODB_CONNECTION_STRING=$connection_string" >> $GITHUB_ENV
 
       - name: Initialize MongoDB Database
         run: |
