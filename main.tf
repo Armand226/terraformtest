@@ -51,7 +51,7 @@ output "mongodb_connection_string" {
 resource "null_resource" "create_db_collection" {
   provisioner "local-exec" {
     command = <<EOT
-      mongosh "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval "
+      mongosh --username "myuser" --password "${var.db_password}" "${mongodbatlas_cluster.my_cluster.connection_strings[0].standard_srv}" --eval "
       use Database1;
       db.createCollection(\"collection1\");
       db.collection1.insertOne({ x: 1 });
