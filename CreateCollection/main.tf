@@ -50,6 +50,7 @@ resource "null_resource" "create_collection" {
         --password ${var.mongodb_password} \
         --eval 'db.getSiblingDB("${var.mongodb_database_name}").createCollection("${var.mongodb_collection_name}")'
     EOT
+    timeout = "60000ms"
   }
 depends_on = [mongodbatlas_project_ip_access_list.ip_whitelist]
 }
