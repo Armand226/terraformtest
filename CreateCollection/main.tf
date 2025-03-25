@@ -45,11 +45,12 @@ resource "mongodbatlas_database_user" "user" {
 resource "null_resource" "create_collection" {
   provisioner "local-exec" {
     command = <<EOT
-    timeout 60s
-      mongosh "${data.mongodbatlas_cluster.cluster.connection_strings[0].standard_srv}/?retryWrites=true&w=majority&appName=test-dev-cluster" \
+    sleep 60
+      mongosh "${data.mongodbatlas_cluster.cluster.connection_strings[0].standard_srv}" \
         --username ${var.mongodb_username} \
         --password ${var.mongodb_password} \
-        --eval 'db.getSiblingDB("${var.mongodb_database_name}").createCollection("${var.mongodb_collection_name}")'
+        --eval use "${var.mongodb_database_name};
+        db.createCollection("${var.mongodb_collection_name}")"
     EOT
   }
 depends_on = [mongodbatlas_project_ip_access_list.ip_whitelist]
