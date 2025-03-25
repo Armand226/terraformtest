@@ -34,8 +34,8 @@ jobs:
     - name: Get Runner's Public IP
       id: get_ip
       run: |
-          echo "PUBLIC_IP=$(curl -s https://checkip.amazonaws.com)/32" >> $GITHUB_ENV
-          #echo "PUBLIC_IP=$(curl -s https://checkip.amazonaws.com)" >> $GITHUB_ENV
+          #echo "PUBLIC_IP=$(curl -s https://checkip.amazonaws.com)/32" >> $GITHUB_ENV
+          echo "PUBLIC_IP=$(curl -s https://checkip.amazonaws.com)" >> $GITHUB_ENV
      
     - name: Install MongoDB CLI
       run: |
