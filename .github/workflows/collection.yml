@@ -72,7 +72,7 @@ jobs:
       working-directory: ./CreateCollection
     
     - name: Apply Terraform
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
       run: terraform apply -auto-approve -input=false -no-color
       env:
         TF_VAR_public_ip: ${{ env.PUBLIC_IP }}
