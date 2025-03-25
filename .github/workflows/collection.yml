@@ -1,0 +1,87 @@
+name: Create Collection
+
+on:
+  workflow_dispatch:
+    inputs:
+      project-name:
+        description: 'Project Name'
+        default: 'test-project'
+        required: true
+      
+      cluster-name:
+        description: 'Cluster Name'
+        default: 'test-dev-cluster'
+        required: true
+      
+      database-name:
+        description: 'Databse Name'
+        default: 'test-dev-db'
+        required: true
+      
+      collection-name:
+        description: 'Collection Name'
+        default: 'defaultCollection'
+        required: true
+    
+jobs:
+  createCollection:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Get Runner's Public IP
+      id: get_ip
+      run: |
+          echo "PUBLIC_IP=$(curl -s https://checkip.amazonaws.com)/32" >> $GITHUB_ENV
+          #echo "PUBLIC_IP=$(curl -s https://checkip.amazonaws.com)" >> $GITHUB_ENV
+     
+    - name: Install MongoDB CLI
+      run: |
+          wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+          echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+          sudo apt-get update
+          sudo apt-get install -y mongodb-mongosh
+      
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version:  1.8.3
+
+    - name: Initialize Terraform
+      run: terraform init
+      working-directory: ./CreateCollection
+
+    - name: Validate Terraform
+      run: terraform validate
+      working-directory: ./CreateCollection
+
+    - name: Plan Terraform
+      run: terraform plan -input=false -no-color -detailed-exitcode -parallelism=1
+      env:
+        TF_VAR_public_ip: ${{ env.PUBLIC_IP }}
+        TF_VAR_mongodb_public_key: ${{ secrets.MONGODB_ATLAS_PUBLIC_KEY }}
+        TF_VAR_mongodb_private_key: ${{ secrets.MONGODB_ATLAS_PRIVATE_KEY }}
+        TF_VAR_mongodb_project_name: ${{ github.event.inputs.project-name }}
+        TF_VAR_mongodb_username: ${{ secrets.MONGODB_USERNAME }}
+        TF_VAR_mongodb_password: ${{ secrets.MONGODB_PASSWORD }}
+        TF_VAR_mongodb_database_name: ${{ github.event.inputs.database-name }}
+        TF_VAR_mongodb_cluster_name: ${{ github.event.inputs.cluster-name }}
+        TF_VAR_mongodb_collection_name: ${{ github.event.inputs.collection-name }}
+      working-directory: ./CreateCollection
+    
+    - name: Apply Terraform
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      run: terraform apply -auto-approve -input=false -no-color
+      env:
+        TF_VAR_public_ip: ${{ env.PUBLIC_IP }}
+        TF_VAR_mongodb_public_key: ${{ secrets.MONGODB_ATLAS_PUBLIC_KEY }}
+        TF_VAR_mongodb_private_key: ${{ secrets.MONGODB_ATLAS_PRIVATE_KEY }}
+        TF_VAR_mongodb_project_name: ${{ github.event.inputs.project-name }}
+        TF_VAR_mongodb_username: ${{ secrets.MONGODB_USERNAME }}
+        TF_VAR_mongodb_password: ${{ secrets.MONGODB_PASSWORD }}
+        TF_VAR_mongodb_database_name: ${{ github.event.inputs.database-name }}
+        TF_VAR_mongodb_cluster_name: ${{ github.event.inputs.cluster-name }}
+        TF_VAR_mongodb_collection_name: ${{ github.event.inputs.collection-name }}
+      working-directory: ./CreateCollection
