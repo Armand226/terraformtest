@@ -27,8 +27,8 @@ output "connection_string" {
 
 resource "mongodbatlas_project_ip_access_list" "ip_whitelist" {
   project_id   = data.mongodbatlas_project.project.id
-  cidr_block = var.public_ip
-  #ip_address = var.public_ip
+  #cidr_block = var.public_ip
+  ip_address = var.public_ip
 }
  
 resource "mongodbatlas_database_user" "user" {
